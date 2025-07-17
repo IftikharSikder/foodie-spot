@@ -1,4 +1,4 @@
-# food_delivery
+# foodie_spot
 
 A new Flutter project.
 

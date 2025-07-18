@@ -1,4 +1,3 @@
-// lib/domain/models/banner_model.dart
 class BannerModel {
   final int id;
   final String title;
@@ -27,11 +26,9 @@ class BannerModel {
   });
 
   factory BannerModel.fromJson(Map<String, dynamic> json) {
-    // Create full image URL based on base URL
     String imageUrl = json['image'] ?? '';
     String fullImageUrl = '';
     if (imageUrl.isNotEmpty) {
-      // Check if it's already a full URL
       if (imageUrl.startsWith('http')) {
         fullImageUrl = imageUrl;
       } else {
@@ -77,7 +74,6 @@ class BannerModel {
     };
   }
 
-  // Getter for backward compatibility
   String get description => restaurant?.name ?? food?.name ?? title;
   int? get restaurantId => restaurant?.id;
   int? get foodId => food?.id;
@@ -227,11 +223,10 @@ class BannerResponse {
               .toList() ??
           [],
       success:
-          true, // API doesn't return success field, assume true if we get data
+          true,
       message: 'Success',
     );
   }
 
-  // Get all banners including campaigns
   List<BannerModel> get allBanners => [...banners, ...campaigns];
 }

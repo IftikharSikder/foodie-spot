@@ -19,7 +19,6 @@ class BannerShimmer extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              // Main shimmer container
               Container(
                 width: double.infinity,
                 height: 180,
@@ -28,7 +27,6 @@ class BannerShimmer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              // Positioned elements to mimic the banner layout
               Positioned(
                 left: 20,
                 top: 20,
@@ -65,7 +63,6 @@ class BannerShimmer extends StatelessWidget {
                   ),
                 ),
               ),
-              // Circular food items shimmer
               Positioned(
                 right: 20,
                 top: 20,
@@ -79,7 +76,6 @@ class BannerShimmer extends StatelessWidget {
                   ],
                 ),
               ),
-              // Discount badge shimmer
               Positioned(
                 left: 20,
                 top: 50,
@@ -119,7 +115,6 @@ class BannerListShimmer extends StatelessWidget {
     return Column(
       children: [
         const BannerShimmer(),
-        // Dots indicator shimmer
         Container(
           height: 20,
           margin: const EdgeInsets.only(top: 10),

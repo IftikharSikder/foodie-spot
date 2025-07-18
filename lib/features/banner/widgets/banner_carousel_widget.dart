@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../common/base_widgets/custom_snackbar_widgets.dart';
 import '../controllers/banner_controller.dart';
 import '../domain/models/banner_model.dart';
 import '../screen/banner_details_screen.dart';
@@ -20,6 +22,8 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
   late PageController _pageController;
   Timer? _timer;
   int _currentPage = 0;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
+  bool _hasError = false;
 
   @override
   void initState() {
@@ -29,6 +33,18 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<BannerController>().fetchBanners();
       _startAutoScroll();
+    });
+
+    // Listen to connectivity changes
+    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
+      List<ConnectivityResult> results,
+    ) {
+      if (results.any((result) => result != ConnectivityResult.none) &&
+          _hasError) {
+        // Internet connection restored and we had an error previously
+        _hasError = false;
+        context.read<BannerController>().fetchBanners();
+      }
     });
   }
 
@@ -61,6 +77,7 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
   void dispose() {
     _stopAutoScroll();
     _pageController.dispose();
+    _connectivitySubscription.cancel();
     super.dispose();
   }
 
@@ -73,7 +90,19 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
         }
 
         if (controller.error.isNotEmpty) {
-          return _buildErrorWidget(controller);
+          // Mark that we have an error
+          _hasError = true;
+
+          // Show error using custom snackbar
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            customSnackBar(controller.error, context, isError: true);
+          });
+
+          // Show shimmer instead of error widget when there's an error
+          return const BannerListShimmer();
+        } else {
+          // Reset error flag when data loads successfully
+          _hasError = false;
         }
 
         if (controller.banners.isEmpty) {
@@ -191,7 +220,15 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
                     );
                   },
                   errorBuilder: (context, error, stackTrace) {
-                    print('Banner image load error: $error for URL: $imageUrl');
+                    // Show error snackbar for individual image load failures
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      customSnackBar(
+                        'Failed to load banner image',
+                        context,
+                        isError: true,
+                      );
+                    });
+
                     return Container(
                       color: Colors.grey[200],
                       child: const Center(
@@ -238,49 +275,6 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
                   ),
                 ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildErrorWidget(BannerController controller) {
-    return Container(
-      height: 180,
-      margin: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[300]!),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.error_outline, color: Colors.grey[400], size: 48),
-          const SizedBox(height: 16),
-          Text(
-            'Failed to load banners',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            controller.error,
-            style: TextStyle(color: Colors.grey[500], fontSize: 12),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () => controller.refreshBanners(),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            ),
-            child: const Text('Retry'),
-          ),
-        ],
       ),
     );
   }

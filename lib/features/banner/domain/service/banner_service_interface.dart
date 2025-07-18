@@ -1,5 +1,3 @@
-// lib/services/interfaces/banner_service_interface.dart
-
 import '../models/banner_model.dart';
 
 abstract class BannerServiceInterface {

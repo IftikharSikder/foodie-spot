@@ -1,4 +1,3 @@
-// lib/widgets/banner_detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -43,27 +42,22 @@ class BannerDetailScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title and Status
                   _buildTitleSection(),
 
                   const SizedBox(height: 16),
 
-                  // Description
                   _buildDescriptionSection(),
 
                   const SizedBox(height: 24),
 
-                  // Details Cards
                   _buildDetailsSection(),
 
                   const SizedBox(height: 24),
 
-                  // Action Button
                   _buildActionButton(context),
 
                   const SizedBox(height: 24),
 
-                  // Additional Info
                   _buildAdditionalInfo(),
                 ],
               ),
@@ -75,7 +69,6 @@ class BannerDetailScreen extends StatelessWidget {
   }
 
   Widget _buildBannerImage(BuildContext context) {
-    // Construct the full image URL
     String imageUrl = banner.imageFullUrl;
     if (imageUrl.isEmpty && banner.image != null && banner.image!.isNotEmpty) {
       imageUrl =

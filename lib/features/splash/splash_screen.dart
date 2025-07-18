@@ -31,7 +31,7 @@ class SplashScreen extends StatelessWidget {
         internetProvider.setNavigated(true);
         Future.delayed(const Duration(seconds: 2), () {
           if (context.mounted) {
-            context.goNamed(screen.home.name);
+            context.goNamed(screens.home.name);
           }
         });
       }

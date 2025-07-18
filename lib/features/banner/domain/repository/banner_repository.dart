@@ -1,4 +1,3 @@
-// lib/repositories/banner_repository.dart
 import 'package:dio/dio.dart';
 
 import '../models/banner_model.dart';
@@ -21,7 +20,6 @@ class BannerRepository implements BannerRepositoryInterface {
       'longitude': '90.425614',
     });
 
-    // Add interceptors for logging (optional)
     dio.interceptors.add(
       LogInterceptor(
         requestBody: true,

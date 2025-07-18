@@ -1,4 +1,3 @@
-// lib/core/config/api_config.dart
 class ApiConfig {
   static const String baseUrl = 'https://stackfood-admin.6amtech.com/api/v1';
   static const String bannersEndpoint = '/banners';

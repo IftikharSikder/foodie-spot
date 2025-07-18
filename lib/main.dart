@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +13,11 @@ import 'features/banner/domain/service/banner_service.dart';
 import 'features/categories/controller/category_controller.dart';
 import 'features/categories/domain/repository/category_repository.dart';
 import 'features/categories/domain/service/category_service.dart';
+import 'features/food_campaign/controller/food_campaign_controller.dart';
+import 'features/food_campaign/domain/repository/food_campaign_repository.dart';
+import 'features/food_campaign/domain/service/food_campaign_service.dart';
 import 'features/popular/controller/popular_food_controller.dart';
+import 'features/restaurant_food/controller/restaurant_controller.dart';
 import 'helper/network_info.dart';
 
 //I need to internet connectivity
@@ -20,6 +25,9 @@ import 'helper/network_info.dart';
 //Screen util for responsive size
 //App theme mush be set
 //After navigation same screen position
+//remove all print from console
+//checking internet connectivity
+//fixing router
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +48,17 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => PopularFoodController(PopularFoodRepository()),
         ),
+        ChangeNotifierProvider(
+          create: (context) => FoodCampaignController(
+            service: FoodCampaignService(
+              repository: FoodCampaignRepository(
+                dio: Dio(), // Your configured Dio instance
+              ),
+            ),
+          ),
+        ),
+        // ChangeNotifierProvider(create: (_) => RestaurantController()),
+        ChangeNotifierProvider(create: (context) => RestaurantController()),
       ],
       child: MyApp(),
     ),

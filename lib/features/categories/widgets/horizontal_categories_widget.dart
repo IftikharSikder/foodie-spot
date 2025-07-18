@@ -104,23 +104,18 @@ class _HorizontalCategoryWidgetState extends State<HorizontalCategoryWidget> {
     if (controller.isLoading) {
       return _buildLoadingState();
     }
-
     if (controller.error.isNotEmpty) {
       _hasError = true;
-
       WidgetsBinding.instance.addPostFrameCallback((_) {
         customSnackBar(controller.error, context, isError: true);
       });
-
       return _buildLoadingState();
     } else {
       _hasError = false;
     }
-
     if (controller.parentCategories.isEmpty) {
       return _buildEmptyState();
     }
-
     return _buildCategoryList(context, controller);
   }
 
@@ -250,8 +245,7 @@ class _HorizontalCategoryWidgetState extends State<HorizontalCategoryWidget> {
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    return GestureDetector(
-      onTap: onTap,
+    return InkWell(
       child: Container(
         width: 70,
         margin: const EdgeInsets.only(right: 16),

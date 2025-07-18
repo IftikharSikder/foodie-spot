@@ -35,13 +35,11 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
       _startAutoScroll();
     });
 
-    // Listen to connectivity changes
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
       List<ConnectivityResult> results,
     ) {
       if (results.any((result) => result != ConnectivityResult.none) &&
           _hasError) {
-        // Internet connection restored and we had an error previously
         _hasError = false;
         context.read<BannerController>().fetchBanners();
       }
@@ -90,18 +88,14 @@ class _BannerCarouselWidgetState extends State<BannerCarouselWidget> {
         }
 
         if (controller.error.isNotEmpty) {
-          // Mark that we have an error
           _hasError = true;
 
-          // Show error using custom snackbar
           WidgetsBinding.instance.addPostFrameCallback((_) {
             customSnackBar(controller.error, context, isError: true);
           });
 
-          // Show shimmer instead of error widget when there's an error
           return const BannerListShimmer();
         } else {
-          // Reset error flag when data loads successfully
           _hasError = false;
         }
 

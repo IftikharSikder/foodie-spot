@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../../../common/base_widgets/custom_snackbar_widgets.dart';
 import '../controller/category_controller.dart';
-import '../domain/models/category_model.dart';
 import '../widgets/category_item_widget.dart';
 import '../widgets/category_shimmer_widget.dart';
 
@@ -100,34 +99,6 @@ class _CategoryViewAllScreenState extends State<CategoryViewAllScreen> {
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Browse Categories',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '${controller.parentCategories.length} categories available',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-
                   if (controller.parentCategories.isNotEmpty) ...[
                     _buildSectionHeader('Main Categories'),
                     _buildParentCategoriesGrid(controller),
@@ -193,13 +164,7 @@ class _CategoryViewAllScreenState extends State<CategoryViewAllScreen> {
         itemCount: controller.parentCategories.length,
         itemBuilder: (context, index) {
           final category = controller.parentCategories[index];
-          return CategoryProductItemWidget(
-            product: category,
-            onTap: () {
-              controller.selectCategory(category);
-              _showSubcategoriesBottomSheet(context, category, controller);
-            },
-          );
+          return CategoryProductItemWidget(product: category, onTap: () {});
         },
       ),
     );
@@ -217,12 +182,7 @@ class _CategoryViewAllScreenState extends State<CategoryViewAllScreen> {
           return CategoryItemWidget(
             category: category,
             isSelected: controller.selectedCategory?.id == category.id,
-            onTap: () {
-              controller.selectCategory(category);
-              if (category.childesCount > 0) {
-                _showSubcategoriesBottomSheet(context, category, controller);
-              }
-            },
+            onTap: () {},
           );
         },
       ),
@@ -267,111 +227,8 @@ class _CategoryViewAllScreenState extends State<CategoryViewAllScreen> {
         itemCount: controller.categoryProducts.length,
         itemBuilder: (context, index) {
           final product = controller.categoryProducts[index];
-          return CategoryProductItemWidget(
-            product: product,
-            onTap: () {
-              _handleProductTap(product);
-            },
-          );
+          return CategoryProductItemWidget(product: product, onTap: () {});
         },
-      ),
-    );
-  }
-
-  void _showSubcategoriesBottomSheet(
-    BuildContext context,
-    CategoryModel category,
-    CategoryController controller,
-  ) {
-    final subcategories = controller.getSubCategories(category.id);
-
-    if (subcategories.isEmpty) return;
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.6,
-        maxChildSize: 0.9,
-        minChildSize: 0.3,
-        builder: (context, scrollController) => Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          child: Column(
-            children: [
-              // Handle bar
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-
-              // Header
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${category.name} Subcategories',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.close),
-                    ),
-                  ],
-                ),
-              ),
-
-              const Divider(height: 1),
-
-              // Subcategories list
-              Expanded(
-                child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: subcategories.length,
-                  itemBuilder: (context, index) {
-                    final subcategory = subcategories[index];
-                    return CategoryItemWidget(
-                      category: subcategory,
-                      isSelected:
-                          controller.selectedCategory?.id == subcategory.id,
-                      onTap: () {
-                        controller.selectCategory(subcategory);
-                        Navigator.pop(context);
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _handleProductTap(CategoryModel product) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Selected: ${product.name}'),
-        duration: const Duration(seconds: 2),
       ),
     );
   }

@@ -57,8 +57,6 @@ class BannerDetailScreen extends StatelessWidget {
                   _buildActionButton(context),
 
                   const SizedBox(height: 24),
-
-                  _buildAdditionalInfo(),
                 ],
               ),
             ),
@@ -360,37 +358,6 @@ class BannerDetailScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildAdditionalInfo() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Additional Information',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 12),
-          if (banner.createdAt != null)
-            _buildInfoRow('Created', _formatDate(banner.createdAt!)),
-          if (banner.updatedAt != null)
-            _buildInfoRow('Updated', _formatDate(banner.updatedAt!)),
-          _buildInfoRow('Image', banner.image),
-        ],
       ),
     );
   }

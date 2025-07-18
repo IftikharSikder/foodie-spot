@@ -1,27 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/features/popular/widgets/popular_food_item_widget.dart';
+import 'package:food_delivery/features/popular/widgets/popular_food_shimmer_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../helper/network_info.dart';
 import '../controller/popular_food_controller.dart';
 import '../screen/popular_food_view_all_screen.dart';
-import 'popular_food_item_widget.dart';
-import 'popular_food_shimmer_widget.dart';
 
-class HorizontalPopularFoodWidget extends StatelessWidget {
+class HorizontalPopularFoodWidget extends StatefulWidget {
   const HorizontalPopularFoodWidget({Key? key}) : super(key: key);
+
+  @override
+  State<HorizontalPopularFoodWidget> createState() =>
+      _HorizontalPopularFoodWidgetState();
+}
+
+class _HorizontalPopularFoodWidgetState
+    extends State<HorizontalPopularFoodWidget> {
+  bool _retryTriggered = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final popularFoodController = context.read<PopularFoodController>();
+    final internetProvider = context.watch<InternetProvider>();
+
+    final shouldRetry =
+        internetProvider.hasConnection &&
+        popularFoodController.hasNetworkError &&
+        popularFoodController.error.isNotEmpty &&
+        !_retryTriggered;
+
+    if (shouldRetry) {
+      _retryTriggered = true;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await popularFoodController.silentRetry();
+
+        if (mounted) {
+          setState(() {
+            _retryTriggered = false;
+          });
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer2<PopularFoodController, InternetProvider>(
       builder: (context, popularFoodController, internetProvider, child) {
-        if (internetProvider.hasConnection &&
-            popularFoodController.hasNetworkError &&
-            popularFoodController.error.isNotEmpty) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            popularFoodController.silentRetry();
-          });
-        }
-
         if (popularFoodController.isLoading ||
             (popularFoodController.hasNetworkError &&
                 popularFoodController.popularFoods.isEmpty)) {
@@ -41,6 +70,7 @@ class HorizontalPopularFoodWidget extends StatelessWidget {
             ),
           );
         }
+
         if (popularFoodController.popularFoods.isEmpty &&
             popularFoodController.error.isEmpty) {
           return const SizedBox(

@@ -57,9 +57,3 @@ Make sure you are using Flutter version **3.32.4** with Android Studio **Koala**
 
 ---
 
-## 📫 Contact
-
-**Author:** Iftikhar Sikder  
-**GitHub:** [@IftikharSikder](https://github.com/IftikharSikder)
-
----

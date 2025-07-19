@@ -7,9 +7,9 @@
 ## ✨ Features Overview
 
 • Splash screen – Clean branding intro  
-• Dashboard UI – Central navigation hub *(📷 add screenshot here)*  
-• Restaurant & Food Search – Search by name or keyword *(📷 add screenshot)*  
-• Product & Restaurant Description – Detail views with images, ratings *(📷 add screenshot)*  
+• Dashboard UI – Central navigation hub
+• Restaurant & Food Search – Search by name or keyword
+• Product & Restaurant Description – Detail views with images, ratings
 • Category screen – Explore food categories  
 • Popular nearby foods – Discover top dishes around your location  
 • Food campaign page – Showcase promotional campaign items  
@@ -27,12 +27,12 @@
 
 - `![Splash](assets/screenshots/splash.png)`
 - `![Dashboard](assets/screenshots/dashboard.png)`
-- `![Search Restaurant/Food](assets/screenshots/search restaurants_product.png)`
+- `![Search Restaurant/Food](assets/screenshots/search_restaurants_product.png)`
 - `![Restaurant Details](assets/screenshots/restaurants_details_screen.png)`
 - `![Banner Details](assets/screenshots/banner_details.png)`
 - `![Categories](assets/screenshots/categories.png)`
 - `![Campaign](assets/screenshots/food_campaign.png)`
-- `![Restaurants Food Filtering](assets/screenshots/restaurant's_food_filtering.png)`
+- `![Restaurants Food Filtering](assets/screenshots/restaurant_food_filtering.png)`
 
 ---
 

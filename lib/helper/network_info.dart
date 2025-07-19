@@ -8,10 +8,12 @@ class InternetProvider with ChangeNotifier {
   bool _notifiedOnce = false;
   bool _lastStatus = true;
   bool _navigated = false;
+  bool _isInitialized = false;
 
   bool get hasConnection => _hasConnection;
   bool get lastStatus => _lastStatus;
   bool get navigated => _navigated;
+  bool get isInitialized => _isInitialized;
 
   StreamSubscription<List<ConnectivityResult>>? _subscription;
 
@@ -19,7 +21,21 @@ class InternetProvider with ChangeNotifier {
     _initConnectivity();
   }
 
-  void _initConnectivity() {
+  Future<void> _initConnectivity() async {
+    try {
+      final List<ConnectivityResult> results = await Connectivity()
+          .checkConnectivity();
+      _hasConnection = results.any(
+        (result) => result != ConnectivityResult.none,
+      );
+      _lastStatus = _hasConnection;
+      _isInitialized = true;
+
+      notifyListeners();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+
     _subscription = Connectivity().onConnectivityChanged.listen((
       List<ConnectivityResult> results,
     ) {
@@ -27,12 +43,16 @@ class InternetProvider with ChangeNotifier {
       _hasConnection = results.any(
         (result) => result != ConnectivityResult.none,
       );
-      if (!_hasConnection && !_notifiedOnce) {
-        _notifiedOnce = true;
+
+      if (_hasConnection != previous) {
+        if (!_hasConnection && !_notifiedOnce) {
+          _notifiedOnce = true;
+        }
+        if (_hasConnection && !previous) {
+          _notifiedOnce = false;
+        }
+
         notifyListeners();
-      }
-      if (_hasConnection && !previous) {
-        _notifiedOnce = false;
       }
     });
   }

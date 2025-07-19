@@ -4,12 +4,12 @@ import '../constants/app_colors.dart';
 
 final ThemeData appTheme = ThemeData(
   brightness: Brightness.light,
-  primaryColor: AppColors.primary,
-  scaffoldBackgroundColor: AppColors.background,
+  primaryColor: AppColors.sPrimary,
+  scaffoldBackgroundColor: AppColors.sBackground,
   fontFamily: 'Poppins',
 
   colorScheme: ColorScheme.light(
-    primary: AppColors.primary,
+    primary: AppColors.sPrimary,
     secondary: AppColors.secondary,
     onPrimary: Colors.white,
     onSecondary: Colors.black,

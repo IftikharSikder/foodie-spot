@@ -24,15 +24,34 @@
 ## UI Previews
 
 ![Splash](assets/screenshots/splash.png)  
+*Splash Screen*
+
 ![Dashboard](assets/screenshots/dashboard.png)  
+*Dashboard*
+
 ![Search Restaurant/Food](assets/screenshots/search_restaurants_product.png)  
+*Search Restaurant/Food*
+
 ![Restaurant Details](assets/screenshots/restaurants_details_screen.png)  
+*Restaurant Details*
+
 ![Banner Details](assets/screenshots/banner_details.png)  
+*Banner Details*
+
 ![Categories](assets/screenshots/categories.png)  
+*Categories*
+
 ![Campaign](assets/screenshots/food_campaign.png)  
+*Food Campaign*
+
 ![Restaurants Food Filtering](assets/screenshots/restaurant_food_filtering.png)  
+*Restaurants Food Filtering*
+
 ![Dashboard Web](assets/screenshots/dashboard_web.png)  
-![Search Restaurant/Food Web](assets/screenshots/search_restaurants_product_food_web.png)
+*Dashboard Web*
+
+![Search Restaurant/Food Web](assets/screenshots/search_restaurants_product_food_web.png)  
+*Search Restaurant/Food Web*
 
 ---
 

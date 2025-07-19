@@ -74,55 +74,120 @@ class _SplashScreenState extends State<SplashScreen>
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedBuilder(
-              animation: _bounceAnimation,
-              builder: (context, child) {
-                return Transform.scale(
-                  scale: _bounceAnimation.value,
-                  child: Container(
-                    width: AppDimensions.logoSize,
-                    height: AppDimensions.logoSize,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.primary,
-                    ),
-                    child: Center(
-                      child: Image.asset(
-                        AppImage.appLogo,
-                        width: AppDimensions.imageSize,
-                        height: AppDimensions.imageSize,
-                        fit: BoxFit.contain,
-                      ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth < 600) {
+            // Mobile version
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedBuilder(
+                    animation: _bounceAnimation,
+                    builder: (context, child) {
+                      return Transform.scale(
+                        scale: _bounceAnimation.value,
+                        child: Container(
+                          width: AppDimensions.logoSize,
+                          height: AppDimensions.logoSize,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.primary,
+                          ),
+                          child: Center(
+                            child: Image.asset(
+                              AppImage.appLogo,
+                              width: AppDimensions.imageSize,
+                              height: AppDimensions.imageSize,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: AppDimensions.spacingLarge),
+                  Text(
+                    AppStrings.appName,
+                    style: TextStyle(
+                      fontSize: AppDimensions.selectedItemIconSize,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.title,
+                      letterSpacing: 1.2,
                     ),
                   ),
-                );
-              },
-            ),
-            SizedBox(height: AppDimensions.spacingLarge),
-            Text(
-              AppStrings.appName,
-              style: TextStyle(
-                fontSize: AppDimensions.selectedItemIconSize,
-                fontWeight: FontWeight.bold,
-                color: AppColors.title,
-                letterSpacing: 1.2,
+                  SizedBox(height: AppDimensions.spacingSmall),
+                  Text(
+                    AppStrings.tagline,
+                    style: TextStyle(
+                      fontSize: AppDimensions.subtitleFont,
+                      color: AppColors.subtitle,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: AppDimensions.spacingSmall),
-            Text(
-              AppStrings.tagline,
-              style: TextStyle(
-                fontSize: AppDimensions.subtitleFont,
-                color: AppColors.subtitle,
-                fontWeight: FontWeight.w400,
+            );
+          } else {
+            // Web version - smaller sizes
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedBuilder(
+                    animation: _bounceAnimation,
+                    builder: (context, child) {
+                      return Transform.scale(
+                        scale: _bounceAnimation.value,
+                        child: Container(
+                          width: AppDimensions.logoSize * 0.7, // 30% smaller
+                          height: AppDimensions.logoSize * 0.7,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.primary,
+                          ),
+                          child: Center(
+                            child: Image.asset(
+                              AppImage.appLogo,
+                              width:
+                                  AppDimensions.imageSize * 0.7, // 30% smaller
+                              height: AppDimensions.imageSize * 0.7,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: AppDimensions.spacingLarge * 0.8,
+                  ), // Slightly smaller spacing
+                  Text(
+                    AppStrings.appName,
+                    style: TextStyle(
+                      fontSize:
+                          AppDimensions.selectedItemIconSize *
+                          0.75, // 25% smaller
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.title,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  SizedBox(height: AppDimensions.spacingSmall * 0.8),
+                  Text(
+                    AppStrings.tagline,
+                    style: TextStyle(
+                      fontSize:
+                          AppDimensions.subtitleFont * 0.85, // 15% smaller
+                      color: AppColors.subtitle,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            );
+          }
+        },
       ),
     );
   }

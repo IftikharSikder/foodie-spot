@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:html' as html;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +12,8 @@ import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../app/banner/controllers/banner_controller.dart';
 import '../../../app/banner/domain/models/banner_model.dart';
+import '../../../web/dashboard/resize_listener_web.dart'
+    if (dart.library.io) '../../../web/dashboard/resize_listener_stub.dart';
 
 class WebBannerCarouselWidget extends StatefulWidget {
   const WebBannerCarouselWidget({super.key});
@@ -31,6 +33,7 @@ class _WebBannerCarouselWidgetState extends State<WebBannerCarouselWidget>
   bool _hasError = false;
   bool _isHovered = false;
   int? _hoveredIndex;
+  StreamSubscription? _resizeSubscription;
 
   final double _webBannerHeight = 240.0;
 
@@ -58,15 +61,25 @@ class _WebBannerCarouselWidgetState extends State<WebBannerCarouselWidget>
       }
     });
 
-    html.window.onResize.listen((_) {
-      if (mounted) {
-        Future.delayed(const Duration(milliseconds: 100), () {
+    _setupResizeListener();
+  }
+
+  void _setupResizeListener() {
+    if (kIsWeb) {
+      try {
+        listenToResize(() {
           if (mounted) {
-            _updatePageController();
+            Future.delayed(const Duration(milliseconds: 100), () {
+              if (mounted) {
+                _updatePageController();
+              }
+            });
           }
         });
+      } catch (e) {
+        debugPrint('Window resize listener not available: $e');
       }
-    });
+    }
   }
 
   void _updatePageController() {
@@ -159,17 +172,6 @@ class _WebBannerCarouselWidgetState extends State<WebBannerCarouselWidget>
           curve: Curves.easeInOutCubic,
         );
       }
-    }
-  }
-
-  void _goToPage(int index) {
-    if (_pageController.hasClients) {
-      _currentPage = index;
-      _pageController.animateToPage(
-        index,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
     }
   }
 

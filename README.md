@@ -1,63 +1,53 @@
-# 🍽️ Foodie Spot
+# Foodie Spot
 
-**Foodie Spot** is a clean, responsive Flutter app (v3.32.4) developed using Android Studio (Koala), designed to help users discover restaurants and food items based on their location, preferences, and popularity. The project implements key features such as API data fetching, filtering, and modern mobile-first UI optimized for both mobile and web platforms.
-
----
-
-## ✨ Features Overview
-
-• Splash screen – Clean branding intro  
-• Dashboard UI – Central navigation hub *(📷 add screenshot here)*  
-• Restaurant & Food Search – Search by name or keyword *(📷 add screenshot)*  
-• Product & Restaurant Description – Detail views with images, ratings *(📷 add screenshot)*  
-• Category screen – Explore food categories  
-• Popular nearby foods – Discover top dishes around your location  
-• Food campaign page – Showcase promotional campaign items  
-• Restaurant list with pagination  
-• Filtering & sorting – Sort by rating, distance, price, cuisine  
-• Responsive UI – Works on both mobile and web  
-• Error handling – Handles no internet, loading errors, and API fails  
-• State management – Used for clean and maintainable UI updates
+**Foodie Spot** is a responsive Flutter app (v3.32.4) developed with Android Studio (Koala), designed to help users discover restaurants and food items based on their location, preferences, and popularity. The project includes API data fetching, filtering, and a clean, mobile-first UI optimized for both mobile and web platforms.
 
 ---
 
-## 💻 UI Previews
+## Features
 
-📷 Replace these placeholders with actual images from your app:
-
-- `![Splash](assets/screenshots/splash.png)`
-- `![Dashboard](assets/screenshots/dashboard.png)`
-- `![Search Restaurant/Food](assets/screenshots/search restaurants_product.png)`
-- `![Restaurant Details](assets/screenshots/restaurants_details_screen.png)`
-- `![Banner Details](assets/screenshots/banner_details.png)`
-- `![Categories](assets/screenshots/categories.png)`
-- `![Campaign](assets/screenshots/food_campaign.png)`
-- `![Restaurants Food Filtering](assets/screenshots/restaurant's_food_filtering.png)`
+- Splash screen with clean branding
+- Dashboard UI with intuitive navigation
+- Restaurant and food search by name or keyword
+- Product and restaurant description pages with images and ratings
+- Category screen to browse food types
+- Popular nearby food discovery
+- Food campaign page for promotions
+- Restaurant list with pagination support
+- Filtering and sorting by rating, distance, price, cuisine
+- Responsive UI compatible with mobile and web
+- Proper error handling for network and API failures
+- Clean state management implementation
 
 ---
 
-## ⚙️ Getting Started
+## UI Previews
 
-### 1. Clone the Repository
+![Splash](assets/screenshots/splash.png)  
+![Dashboard](assets/screenshots/dashboard.png)  
+![Search Restaurant/Food](assets/screenshots/search_restaurants_product.png)  
+![Restaurant Details](assets/screenshots/restaurants_details_screen.png)  
+![Banner Details](assets/screenshots/banner_details.png)  
+![Categories](assets/screenshots/categories.png)  
+![Campaign](assets/screenshots/food_campaign.png)  
+![Restaurants Food Filtering](assets/screenshots/restaurant_food_filtering.png)  
+![Dashboard Web](assets/screenshots/dashboard_web.png)  
+![Search Restaurant/Food Web](assets/screenshots/search_restaurants_product_food_web.png)
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Flutter SDK version 3.32.4
+- Android Studio Koala
+- Dart SDK (bundled with Flutter)
+- Android emulator or physical device for mobile
+- Chrome or Edge for web testing
+
+### Clone the Repository
 
 ```bash
 git clone https://github.com/IftikharSikder/foodie-spot.git
 cd foodie-spot
-```
-
-### 2. Install Dependencies
-
-```bash
-flutter pub get
-```
-
-### 3. Run the App
-
-```bash
-flutter run
-```
-
-Make sure you are using Flutter version **3.32.4** with Android Studio **Koala**.
-
----
-

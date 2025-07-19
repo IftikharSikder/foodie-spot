@@ -25,10 +25,14 @@
 
 📷 Replace these placeholders with actual images from your app:
 
-- `![Splash & Dashboard](assets/screenshots/splash_dashboard.png)`
-- `![Search & Details](assets/screenshots/search_detail.png)`
-- `![Categories & Nearby](assets/screenshots/categories_nearby.png)`
-- `![Campaign & Filter](assets/screenshots/campaign_filter.png)`
+- `![Splash](assets/screenshots/splash.png)`
+- `![Dashboard](assets/screenshots/dashboard.png)`
+- `![Search Restaurant/Food](assets/screenshots/search restaurants_product.png)`
+- `![Restaurant Details](assets/screenshots/restaurants_details_screen.png)`
+- `![Banner Details](assets/screenshots/banner_details.png)`
+- `![Categories](assets/screenshots/categories.png)`
+- `![Campaign](assets/screenshots/food_campaign.png)`
+- `![Restaurants Food Filtering](assets/screenshots/restaurant's_food_filtering.png)`
 
 ---
 

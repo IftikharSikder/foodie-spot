@@ -33,7 +33,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => InternetProvider()),
         ChangeNotifierProvider(
           create: (_) => NavigationProvider(),
-        ), // Add this line
+        ),
         ChangeNotifierProvider(
           create: (context) => BannerController(
             bannerService: BannerService(bannerRepository: BannerRepository()),

@@ -24,7 +24,7 @@
 ## UI Previews
 
 ![Splash](assets/screenshots/app_screens.png)  
-**App Screens**
+**App**
 
 <br>
 
@@ -32,7 +32,6 @@
 **Web**
 
 <br>
-
 ---
 
 ## Getting Started
